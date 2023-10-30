@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../shared/user';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   formUser!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
     this.createForm(new User());
@@ -32,11 +33,19 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.formUser.valid) {
       // Form is valid, proceed with saving or submitting the data.
-      console.log(this.formUser.value);
+      const createUserData: User = this.formUser.value
 
       // Calling the function createForm to reset the form
-      this.createForm(new User());
-      this.router.navigate(['/main']);
+      this.apiService.putLoginUser(createUserData)
+        .subscribe({
+          next: (response) => {
+            console.log(response)
+            this.router.navigate(['/main']);
+          },
+          error: (error) => {
+            console.error(error)
+          }
+        })
     } else {
       // Form is not valid, handle validation errors or display messages.
       console.log('Form is not valid');
