@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl,Validators } from '@angular/forms';
 import { User } from '../shared/user';
 
 @Component({
@@ -18,18 +18,31 @@ export class RegistrationComponent implements OnInit {
 
   createForm(user: User) {
     this.formUser = new FormGroup({
-      name: new FormControl(user.name),
-      email: new FormControl(user.email),
-      password: new FormControl(user.password),
+      name: new FormControl(user.name, [
+        Validators.required, // Name is required
+        Validators.minLength(3), // Minimum length of 3 characters
+      ]),
+      email: new FormControl(user.email, [
+        Validators.required, // Email is required
+        Validators.email, // Valid email format
+      ]),
+      password: new FormControl(user.password, [
+        Validators.minLength(6), // Minimum length of 6 characters
+      ]),
       notifications: new FormControl(user.notifications)
     })
   }
 
   onSubmit() {
-    // aqui você pode implementar a logica para fazer seu formulário salvar
-    console.log(this.formUser.value);
+    if (this.formUser.valid) {
+      // Form is valid, proceed with saving or submitting the data.
+      console.log(this.formUser.value);
 
-    // chamando a função createForm para limpar os campos na tela
-    this.createForm(new User());
+      // Calling the function createForm to reset the form
+      this.createForm(new User());
+    } else {
+      // Form is not valid, handle validation errors or display messages.
+      console.log('Form is not valid');
+    }
   }
 }
