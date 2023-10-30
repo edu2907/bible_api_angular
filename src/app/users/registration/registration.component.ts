@@ -19,15 +19,15 @@ export class RegistrationComponent implements OnInit {
   createForm(user: User) {
     this.formUser = new FormGroup({
       name: new FormControl(user.name, [
-        Validators.required, // Name is required
-        Validators.minLength(3), // Minimum length of 3 characters
+        Validators.required,
+        Validators.minLength(3),
       ]),
       email: new FormControl(user.email, [
-        Validators.required, // Email is required
-        Validators.email, // Valid email format
+        Validators.required,
+        Validators.email,
       ]),
       password: new FormControl(user.password, [
-        Validators.minLength(6), // Minimum length of 6 characters
+        Validators.minLength(6),
       ]),
       notifications: new FormControl(user.notifications)
     })
