@@ -1,6 +1,6 @@
 # BibleApiAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
+Just for learning Angular.
 
 ## Development server
 
