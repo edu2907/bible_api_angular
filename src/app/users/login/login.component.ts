@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl,Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../shared/user';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class LoginComponent implements OnInit {
   formUser!: FormGroup;
 
   constructor(private router: Router) { }
@@ -19,10 +19,6 @@ export class RegistrationComponent implements OnInit {
 
   createForm(user: User) {
     this.formUser = new FormGroup({
-      name: new FormControl(user.name, [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
       email: new FormControl(user.email, [
         Validators.required,
         Validators.email,
@@ -30,7 +26,6 @@ export class RegistrationComponent implements OnInit {
       password: new FormControl(user.password, [
         Validators.minLength(6),
       ]),
-      notifications: new FormControl(user.notifications)
     })
   }
 
